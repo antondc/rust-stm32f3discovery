@@ -1,6 +1,6 @@
 [package]
 edition = "2018"
-name = " rust-embedded-starter"
+name = "rust-embedded-starter"
 version = "0.2.0"
 
 [dependencies]
