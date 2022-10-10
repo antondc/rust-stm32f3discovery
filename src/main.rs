@@ -13,35 +13,49 @@ use switch_hal::OutputSwitch;
 
 #[entry]
 fn main() -> ! {
-    let device_periphs = pac::Peripherals::take().unwrap();
-    let mut reset_and_clock_control = device_periphs.RCC.constrain();
+  let device_periphs = pac::Peripherals::take().unwrap();
+  let mut reset_and_clock_control = device_periphs.RCC.constrain();
 
-    let core_periphs = cortex_m::Peripherals::take().unwrap();
-    let mut flash = device_periphs.FLASH.constrain();
-    let clocks = reset_and_clock_control.cfgr.freeze(&mut flash.acr);
-    let mut delay = Delay::new(core_periphs.SYST, clocks);
+  let core_periphs = cortex_m::Peripherals::take().unwrap();
+  let mut flash = device_periphs.FLASH.constrain();
+  let clocks = reset_and_clock_control.cfgr.freeze(&mut flash.acr);
+  let mut delay = Delay::new(core_periphs.SYST, clocks);
 
-    let mut gpioe = device_periphs.GPIOE.split(&mut reset_and_clock_control.ahb);
-    let mut leds = Leds::new(
-        gpioe.pe8,
-        gpioe.pe9,
-        gpioe.pe10,
-        gpioe.pe11,
-        gpioe.pe12,
-        gpioe.pe13,
-        gpioe.pe14,
-        gpioe.pe15,
-        &mut gpioe.moder,
-        &mut gpioe.otyper,
-    );
+  let mut gpioe = device_periphs.GPIOE.split(&mut reset_and_clock_control.ahb);
+  let mut leds = Leds::new(
+    gpioe.pe8,
+    gpioe.pe9,
+    gpioe.pe10,
+    gpioe.pe11,
+    gpioe.pe12,
+    gpioe.pe13,
+    gpioe.pe14,
+    gpioe.pe15,
+    &mut gpioe.moder,
+    &mut gpioe.otyper,
+  );
 
-    let miliseconds: u16 = 300;
+  let miliseconds: u16 = 300;
 
-    loop {
-        leds.for_direction(Direction::North).on().ok();
-        delay.delay_ms(miliseconds);
+  loop {
+    leds.for_direction(Direction::North).on().ok();
+    leds.for_direction(Direction::NorthWest).off().ok();
+    leds.for_direction(Direction::West).on().ok();
+    leds.for_direction(Direction::SouthWest).off().ok();
+    leds.for_direction(Direction::South).on().ok();
+    leds.for_direction(Direction::SouthEast).off().ok();
+    leds.for_direction(Direction::East).on().ok();
+    leds.for_direction(Direction::NorthEast).off().ok();
+    delay.delay_ms(miliseconds);
 
-        leds.for_direction(Direction::North).off().ok();
-        delay.delay_ms(miliseconds);
-    }
+    leds.for_direction(Direction::North).off().ok();
+    leds.for_direction(Direction::NorthWest).on().ok();
+    leds.for_direction(Direction::West).off().ok();
+    leds.for_direction(Direction::SouthWest).on().ok();
+    leds.for_direction(Direction::South).off().ok();
+    leds.for_direction(Direction::SouthEast).on().ok();
+    leds.for_direction(Direction::East).off().ok();
+    leds.for_direction(Direction::NorthEast).on().ok();
+    delay.delay_ms(miliseconds);
+  }
 }
