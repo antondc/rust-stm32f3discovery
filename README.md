@@ -9,7 +9,7 @@ Starting kit for STM32F3Discovery board: <https://www.st.com/resource/en/user_ma
       cd /tmp
       openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
 
-- Build project:
+- On new tab, build project:
 
       // Build
       cargo build --target thumbv7em-none-eabihf
@@ -17,9 +17,14 @@ Starting kit for STM32F3Discovery board: <https://www.st.com/resource/en/user_ma
       // Test
       cargo readobj --target thumbv7em-none-eabihf --bin rust-embedded-starter -- --file-header
 
-- On new tab start debug session with `cargo run` for this target:
+- Start debug session with `cargo run` for this target:
 
       cargo run --target thumbv7em-none-eabihf -- -q -ex 'target remote :3333'
 
       // Also, thanks to .cargo/config.toml, we may only need
       cargo run
+
+- To load the binary:
+
+      (gdb)
+      load
