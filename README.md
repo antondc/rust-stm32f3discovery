@@ -6,7 +6,8 @@ Starting kit for STM32F3Discovery board: <https://www.st.com/resource/en/user_ma
 
     cargo install cargo-binutils
 
-    // Install target
+Install target:
+
     rustup target add thumbv7em-none-eabihf
     rustup component add llvm-tools
 
@@ -19,28 +20,33 @@ Starting kit for STM32F3Discovery board: <https://www.st.com/resource/en/user_ma
 
 - On new tab, build project:
 
-    // Build
+Build:
+
     cargo build --target thumbv7em-none-eabihf
 
-    // Test
+Test:
+
     cargo readobj --target thumbv7em-none-eabihf --bin rust-embedded-starter -- --file-header
 
 - Start debug session with `cargo run` for this target:
 
-    // Start debug session
+Start debug session:
+
     cargo run --target thumbv7em-none-eabihf -- -q -ex 'target remote :3333'
 
-    // Also, thanks to .cargo/config.toml, we may only need
+Also, thanks to .cargo/config.toml, we may only need:
+
     cargo run
 
 - To load the binary:
-    // Build code
+Build code:
+- 
     (gdb) shell cargo build --target thumbv7em-none-eabihf
     
-    // Upload code 
+Upload code:
+
     (gdb) load
 
-    // Continue execution
-    (gdb) continue  
+Continue execution:
 
-[1][2][3]
+    (gdb) continue  
