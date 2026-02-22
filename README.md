@@ -43,4 +43,4 @@ Starting kit for STM32F3Discovery board: <https://www.st.com/resource/en/user_ma
     // Continue execution
     (gdb) continue  
 
-[1][2]
+[1][2][3]
